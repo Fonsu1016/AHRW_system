@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='scss/all.css') }}">
+    <!-- <link rel="stylesheet" href="scss/all.css"> -->
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <img class="icon2"src="{{ url_for('static', filename='img/icon2.png') }}" alt="">
+            <ul class="nav">
+                <li class="index_i">
+                     <a href="{{ url_for('index_page') }}">
+                        <img src="{{ url_for('static', filename='img/index_icon.png') }}" alt="">
+                        <p>首頁</p>
+                    </a>    
+                </li>
+                <li class="diagnose_i">
+                     <a href="">
+                        <img src="{{ url_for('static', filename='img/diagnose_icon.png') }}" alt="">
+                        <p>診斷</p>
+                    </a>    
+                </li>
+                <li>
+                    <a href="{{ url_for('setting_page') }}">
+                        <img src="{{ url_for('static', filename='img/setting_icon.png') }}" alt="">
+                        <p>設置</p>
+                    </a>  
+                </li>
+                <li class="profile_i">
+                    <a href="{{ url_for('profile_page') }}">
+                        <img src="{{ url_for('static', filename='img/profile_icon.png') }}" alt="">
+                        <p>個人資訊</p>
+                    </a>    
+                </li>
+            </ul>
+            <form id="logoutForm" action="{{ url_for('logout') }}" method="POST">
+                <button class="exit" type="button" onclick="confirmLogout()">
+                    <img src="{{ url_for('static', filename='img/exit_icon.png') }}" alt="">
+                    <p>登出</p>
+                </button>
+            </form>         
+        </div>
+
+        <div class="warning">
+            <button id="notification-btn" class="warningtext" type="button">
+                <img src="{{ url_for('static', filename='img/warning_icon.png') }}" alt="">
+                <span class="badge" id="notification-count">1</span>
+            </button>
+            <div class="notification-box" id="notification-box">
+                <div class="notification-item">新的病患資料已送達(高風險)</div>
+                
+            </div>
+        </div>
+
+        <div class="index_main">
+            <form method="get" action="{{url_for('index_page')}}">
+                <div class="search">
+                    <input type="text"class="searchbar" name="user_id" placeholder="輸入病患ID" required>
+                    <img src="https://cdn-icons-png.flaticon.com/128/5636/5636698.png"  alt="search-section"class="searchicon">
+                    <button class="search_btn" type="submit">搜尋</button>
+                </div>
+            </form> 
+            
+            
+            <ul class="dashboard">
+                <li class="risk1">
+                    <span>高風險</span>
+                    <span class="totalpeople">{{ risk_counts['高風險'] }}</span>
+                    <span>例</span>
+                </li>
+                <li class="risk2">
+                    <span>中風險</span>
+                    <span class="totalpeople">{{ risk_counts['中風險'] }}</span>
+                    <span>例</span>
+                </li>
+                <li class="risk3">
+                    <span>低風險</span>
+                    <span class="totalpeople">{{ risk_counts['低風險'] }}</span>
+                    <span>例</span>
+                </li>
+            </ul>
+            <p class="pa_record">病患紀錄</p>
+            <form method="GET" action="{{url_for('index_page')}}">
+                <div class="record"> 
+                    {% if patients %}            
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>診斷</th>
+                                    <th>風險等級</th>
+                                    <th>測量日期與時間</th>
+                                    <th>姓名</th>
+                                    <th>年齡</th>
+                                    <th>性別</th>
+                                    <th>身高(cm)</th>
+                                    <th>體重(kg)</th>
+                                    <th>BMI</th>
+                                    <th>收縮壓</th>
+                                    <th>舒張壓</th>
+                                    <th>脈搏</th>
+                                    <th>體溫</th>
+                                    <th>膽固醇</th>
+                                    <th>血糖</th>
+                                    <th>抽菸</th>
+                                    <th>飲酒</th>
+                                    <th>運動</th>
+                                    <th>糖尿病</th>
+                                    <th>睡眠障礙</th>
+                                    <th>高血壓</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients %}
+                                    <tr>
+                                        <td>{{ patient.user_id }}</td>
+                                        <td><a href="{{ url_for('diagnose_patient', user_id=patient.user_id) }}" class="diagnose_btn">診斷</a></td>
+                                        <!-- 如果你沒加patient_id=patient.patient_id，那 Flask 接收到的網址就不會有這個參數，就無法查詢正確的病患資料頁面 -->
+                                        <td><span class="risk-tag {{ patient.risk_level }}">{{ patient.risk_level }}</span></td>
+                                        <td>{{ patient.created_at }}</td>
+                                        <td>{{ patient.name }}</td>
+                                        <td>{{ patient.age }}</td>
+                                        <td>{{ patient.sex }}</td>
+                                        <td>{{ patient.height }}</td>
+                                        <td>{{ patient.weight }}</td>
+                                        <td>{{ patient.BMI }}</td>
+                                        <td>{{ patient.systolic_pressure }}</td>
+                                        <td>{{ patient.diastolic_pressure }}</td>
+                                        <td>{{ patient.pulse }}</td>
+                                        <td>{{ patient.temperature }}</td>
+                                        <td>{{ patient.cholesterol }}</td>
+                                        <td>{{ patient.blood_sugar }}</td>
+                                        <td>{{ patient.smoking }}</td>
+                                        <td>{{ patient.drinking }}</td>
+                                        <td>{{ patient.exercise }}</td>
+                                        <td>{{ patient.diabetes }}</td>
+                                        <td>{{ patient.sleep_disorder }}</td>
+                                        <td>{{ patient.hypertension }}</td>
+                                    </tr>
+                                {% endfor %} 
+                            </tbody>
+                        
+                        </table>
+                    {% else %}
+                        <p class="no-data">查無資料</p>
+                    {% endif %}
+
+                </div>
+            </form>
+            
+        </div>
+    </div>
+
+    <script>
+        function confirmLogout() {
+            if (confirm("確定要登出嗎？")) {
+                document.getElementById("logoutForm").submit();
+            }
+        }
+
+        const btn = document.getElementById('notification-btn');
+        const box = document.getElementById('notification-box');
+
+        btn.addEventListener('click', () => {
+        box.classList.toggle('show');
+        });
+
+        setInterval(() => {
+            fetch('/check_new_data')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.new) {
+                        alert("有新資料來了！");
+                        location.reload(); // 或用 AJAX 更新資料區塊
+                    }
+                });
+        }, 5000); // 每 5 秒查一次
+
+        
+    </script>
+    
+</body>
+
+</html>

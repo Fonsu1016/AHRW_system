@@ -1,0 +1,279 @@
+.container{
+    max-width: 1920px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-image: url('../img/indexbd2.png'); 
+    background-size: cover;           
+    background-position: center; 
+    // background-repeat: no-repeat;
+    position: relative;
+    
+    .navbar{
+        text-align: center;
+        width: 105px;
+        height: 100vh;
+        position:fixed;
+        background-color: #2187bd;
+        color:white;
+        padding-top: 100px;
+        padding-bottom: 20px;
+        .icon2{
+            width: 60px;      
+            height: auto;     
+            position: absolute;
+            top: 20px;     
+            left: 20px;
+            
+        }
+        img{
+            width:30px;
+            height:30px;  
+        }
+        .nav{
+            display:inline-block;
+            li{
+                margin-bottom: 18px;
+                padding: 15px 2px 15px 2px;
+                border-radius: 30px;        
+                cursor: pointer;
+                p{
+                    color:white;
+                }
+                &:hover{
+                    background-color: #34495e;
+                }
+                
+            }
+            .index_i{
+                background-color: #34495e;
+            }
+            .profile_i{
+                padding-bottom: 23px;
+                padding-top: 20px;
+                font-size: 14px;
+            }
+        }
+       
+    }
+    .exit{
+        position:absolute;
+        bottom: 18px;
+        left:19px;
+        padding: 20px 15px 20px 15px;
+        border-radius: 40px;
+        border:none;
+        background-color: transparent;
+        color:white;
+        &:hover{
+            background-color: #34495e;
+        }
+    }
+    
+    
+    .warning{
+        position:absolute;
+        top:35px;
+        right:100px;
+        width: 10px;
+        button{
+            border:none;
+            background-color: transparent;
+            border-radius: 30px;
+            padding: 10px 10px 10px 10px;
+            img{
+                width: 30px;
+            }
+            &:hover{
+                background-color: #ffde59;
+            }
+            .badge {
+                position: absolute;
+                top: -1px;
+                right: -10px;
+                background-color: red;
+                color: white;
+                border-radius: 50%;
+                padding: 2px 6px;
+                font-size: 12px;
+            }
+        }
+        .notification-box {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 36px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 250px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            z-index: 100;
+
+            .notification-item {
+                padding: 10px;
+                border-bottom: 1px solid #eee;
+            }
+            .notification-item:last-child {
+                border-bottom: none;
+            }
+        }
+        .notification-box.show {
+            display: block;
+        }
+
+
+    
+    }
+    .index_main{
+        margin: 0 100px 0 170px ;
+        padding-top: 30px;//不能用margin推
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        // overflow-y: auto;
+        // overflow-x: auto;
+        .search{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            width: 400px;
+            margin-bottom: 30px;
+            .searchbar{
+                width: 300px;
+                border: 1px solid #4B4B4B;
+                border-radius: 10px;
+                padding: 12px 48px 12px 50px;
+                font-size: 16px;
+                font-weight: 500;
+                outline: none;
+                border:none;
+            }
+            .searchicon{
+                position: absolute;
+                padding-left: 2%;
+                width: 30px;
+            }
+            .search_btn{
+                margin-left: 10px;
+                padding: 9px 12px 9px 12px;
+                border-radius: 5px;
+                background-color: white;
+                border: none;
+                font-size: 16px;
+                &:hover{
+                    background-color: #d9d9d9;
+                }
+
+            }
+        }
+        .dashboard{
+            display:flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            li{
+                padding:40px 60px 40px 60px; 
+                background-color: white;
+                border-radius: 10px;
+                font-size: 20px;
+                &:hover{
+                    background-color: #d9d9d9;
+                }
+                .totalpeople{
+                    margin-left: 15px;
+                    margin-right: 15px;
+                    font-size: 35px;
+                }
+            }
+
+            .risk1{
+                border-left: 17px solid;
+                border-image: linear-gradient(to bottom, #ff3131, #ff914d) 1;
+            }
+            .risk2{
+                border-left: 17px solid;
+                border-image: linear-gradient(to bottom, #ffde59, #ff914d) 1;
+            }
+            .risk3{
+                border-left: 17px solid;
+                border-image: linear-gradient(to bottom, #89d957, #c9e265) 1;
+            }
+
+        }
+        .pa_record{
+            font-size: 18px;
+            text-align: center;
+            background:linear-gradient(to right, #2187bd, #c2d2e3);
+            color:white;
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            
+        }
+        .record{
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: auto;
+            min-height: 300px;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            width: 100%;
+            margin-bottom: 30px;
+            height: 100%;
+            
+            .no-data{
+                padding: 30px 0px 0px 40px;
+            }
+            table{
+                margin: 20px;
+                min-width: 1600px;
+                width:100%;
+                
+                th{
+                    border: 2px solid #bcbcbc;
+                    background-color: #dddddd;
+                    padding: 10px 0 10px;
+                    font-weight: bold;
+                }
+                td{
+                    padding: 15px 0 13px;
+                    text-align: center;
+                    border: 2px solid #bcbcbc;
+                    .risk-tag {
+                        padding: 4px 8px;
+                        border-radius: 6px;
+                        color: white;
+                        font-weight: bold;
+                    }
+                    .高風險 {
+                        background: linear-gradient(to bottom, #ff3131, #f0b58d)
+                    }
+                    .中風險 {
+                        background: linear-gradient(to bottom, #ffde59, #f7a470)
+                    }
+                    .低風險 {
+                        background: linear-gradient(to bottom, #7bd443, #c6de65)
+                    }
+                    .diagnose_btn{
+                        background-color: #2187bd;
+                        padding: 8px 10px 8px 10px;
+                        color: white;
+                        border-radius: 10px;
+                        &:hover{
+                            background: linear-gradient(to bottom, #437bd4, #9bb4d3)
+                        }
+                    }
+                    
+                }
+
+            }
+            
+            
+        }
+
+    }
+
+    
+    
+    
+}

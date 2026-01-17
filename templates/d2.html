@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1920px;
+            margin: 0 auto;
+            height: 100vh;
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .content {
+            color: #2ab7c6;
+            font-weight: 600;
+        }
+
+        .title {
+            padding: 15px;
+            text-align: center;
+            background: linear-gradient(135deg, #7fb8d1, #e2eaf1);
+            border-radius: 15px 15px 0px 0px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #2c3e50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar {
+            text-align: center;
+            width: 105px;
+            height: 100vh;
+            position: fixed;
+            background: linear-gradient(180deg, #2187bd, #1a6b94);
+            color: white;
+            padding-top: 100px;
+            padding-bottom: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .icon2 {
+            width: 60px;
+            height: auto;
+            position: absolute;
+            top: 20px;
+            left: 22px;
+        }
+
+        .navbar img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .nav {
+            display: inline-block;
+            list-style: none;
+        }
+
+        .nav li {
+            margin-bottom: 18px;
+            padding: 15px 2px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav li:hover {
+            background-color: #34495e;
+            transform: translateX(5px);
+        }
+
+        .diagnose_d {
+            background-color: #34495e !important;
+        }
+
+        .exit {
+            position: absolute;
+            bottom: 18px;
+            left: 19px;
+            padding: 20px 15px;
+            border-radius: 40px;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .exit:hover {
+            background-color: #34495e;
+        }
+
+        .main_d {
+            display: flex;
+            margin-left: 105px;
+            margin-right: 30px;
+            height: 100vh;
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .leftsection {
+            width: 30%;
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+
+        .date {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+
+        .basic_ifo {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .name {
+            font-size: 22px;
+            margin-right: 30px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        .basic2 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .risk-tag {
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .高風險 {
+            background: linear-gradient(135deg, #ff3131, #f0b58d);
+        }
+
+        .中風險 {
+            background: linear-gradient(135deg, #ffde59, #f7a470);
+        }
+
+        .低風險 {
+            background: linear-gradient(135deg, #7bd443, #c6de65);
+        }
+
+        hr {
+            border: none;
+            height: 4px;
+            background: linear-gradient(to right, #7fb8d1, #e2eaf1);
+            margin: 20px 0 30px 0;
+            border-radius: 2px;
+        }
+
+        .leftbottom {
+            list-style: none;
+        }
+
+        .leftbottom li {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        /* 优化后的 rightsection 样式 */
+        .rightsection {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: calc(100vh - 40px);
+        }
+
+        .righttop {
+            flex: 1;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .ECG {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+
+        .ECG_graphic {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .rightbottom {
+            flex: 1;
+            display: flex;
+            gap: 20px;
+        }
+
+        .rightbottom_left {
+            flex: 1.2;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .xgboost {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+
+        .xgboost_graphic {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .rightbottom_right {
+            flex: 1;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .doctor_advice {
+            flex: 1;
+            padding: 0;
+        }
+
+        .doctor_advice textarea {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            resize: none;
+            font-family: inherit;
+            line-height: 1.6;
+            background-color: #fafafa;
+        }
+
+        .save {
+            margin: 20px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1400px) {
+            .main_d {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .leftsection {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .rightsection {
+                width: 100%;
+                height: auto;
+            }
+            
+            .rightbottom {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="icon2">🏥</div>
+            <ul class="nav">
+                <li class="index_d">
+                    <a href="#" style="color: white; text-decoration: none;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E" alt="">
+                        <p>首頁</p>
+                    </a>
+                </li>
+                <li class="diagnose_d">
+                    <a href="#" style="color: white; text-decoration: none;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z'/%3E%3C/svg%3E" alt="">
+                        <p>診斷</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" style="color: white; text-decoration: none;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M12 15.5A3.5 3.5 0 0 1 8.5 12A3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-1l2.11-1.63c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.39-1.06-.73-1.69-.98l-.37-2.65A.506.506 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.37 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64L4.57 11c-.04.34-.07.67-.07 1 0 .33.03.65.07.97l-2.11 1.66c-.19.15-.25.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1.01c.52.4 1.06.74 1.69.99l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1.01c.22.08.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z'/%3E%3C/svg%3E" alt="">
+                        <p>設置</p>
+                    </a>
+                </li>
+                <li class="profile_d">
+                    <a href="#" style="color: white; text-decoration: none;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E" alt="">
+                        <p>個人資訊</p>
+                    </a>
+                </li>
+            </ul>
+            <button class="exit" onclick="confirmLogout()">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M16 13v-2H7V8l-5 4 5 4v-3z'/%3E%3Cpath d='M20 3h-9c-1.11 0-2 .89-2 2v4h2V5h9v14h-9v-4H9v4c0 1.11.89 2 2 2h9c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2z'/%3E%3C/svg%3E" alt="">
+                <p>登出</p>
+            </button>
+        </div>
+
+        <div class="main_d">
+            <div class="leftsection">
+                <p class="date">2024/01/15</p>
+                <div class="basic_ifo">
+                    <div class="name_id">
+                        <span class="name">王小明</span>
+                        <span class="content">ID</span>
+                        <span>P001234</span>
+                    </div>
+                </div>
+                <div class="basic2">
+                    <div class="gender">
+                        <span class="content">性別</span>
+                        <span>男</span>
+                    </div>
+                    <div class="age">
+                        <span class="content">年齡</span>
+                        <span>45</span>
+                    </div>
+                    <div class="risk">
+                        <span class="content">風險</span>
+                        <span class="risk-tag 中風險">中風險</span>
+                    </div>
+                </div>
+                <hr>
+                
+                <ul class="leftbottom">
+                    <li>
+                        <span class="content">身高/cm</span>
+                        <span>175</span>
+                    </li>
+                    <li>
+                        <span class="content">體重/kg</span>
+                        <span>70</span>
+                    </li>
+                    <li>
+                        <span class="content">BMI</span>
+                        <span>22.9</span>
+                    </li>
+                    <li>
+                        <span class="content">收縮壓(mmHg)</span>
+                        <span>120</span>
+                    </li>
+                    <li>
+                        <span class="content">舒張壓(mmHg)</span>
+                        <span>80</span>
+                    </li>
+                    <li>
+                        <span class="content">脈搏</span>
+                        <span>72</span>
+                    </li>
+                    <li>
+                        <span class="content">體溫(℃)</span>
+                        <span>36.5</span>
+                    </li>
+                    <li>
+                        <span class="content">膽固醇</span>
+                        <span>180</span>
+                    </li>
+                    <li>
+                        <span class="content">血糖</span>
+                        <span>95</span>
+                    </li>
+                    <li>
+                        <span class="content">有無抽菸</span>
+                        <span>無</span>
+                    </li>
+                    <li>
+                        <span class="content">有無飲酒</span>
+                        <span>偶爾</span>
+                    </li>
+                    <li>
+                        <span class="content sport">有無運動</span>
+                        <span>規律</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="rightsection">
+                <div class="righttop">
+                    <div class="title">
+                        <p>心電圖</p>
+                    </div>
+                    <div class="ECG">
+                        <img class="ECG_graphic" src="../static/img/ECGdata.png" width='600' height='200' alt="ECG Data">
+                    </div>
+                </div>
+
+                <div class="rightbottom">
+                    <div class="rightbottom_left">
+                        <div class="title">
+                            <p>AI分析結果</p>
+                        </div>
+                        <div class="xgboost">
+                            <img class="xgboost_graphic" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23f8fafc'/%3E%3Ctext x='200' y='30' text-anchor='middle' font-family='Arial' font-size='16' font-weight='bold' fill='%232563eb'%3EXGboost 危險因子分析%3C/text%3E%3Crect x='50' y='50' width='250' height='20' fill='%233b82f6' rx='10'/%3E%3Ctext x='45' y='65' text-anchor='end' font-family='Arial' font-size='12' fill='%23374151'%3E收縮壓%3C/text%3E%3Crect x='50' y='80' width='150' height='20' fill='%2310b981' rx='10'/%3E%3Ctext x='45' y='95' text-anchor='end' font-family='Arial' font-size='12' fill='%23374151'%3E舒張壓%3C/text%3E%3Crect x='50' y='110' width='100' height='20' fill='%23f59e0b' rx='10'/%3E%3Ctext x='45' y='125' text-anchor='end' font-family='Arial' font-size='12' fill='%23374151'%3E脈搏%3C/text%3E%3Crect x='50' y='140' width='60' height='20' fill='%23ef4444' rx='10'/%3E%3Ctext x='45' y='155' text-anchor='end' font-family='Arial' font-size='12' fill='%23374151'%3E體溫%3C/text%3E%3Crect x='50' y='170' width='40' height='20' fill='%236366f1' rx='10'/%3E%3Ctext x='45' y='185' text-anchor='end' font-family='Arial' font-size='12' fill='%23374151'%3EBMI%3C/text%3E%3Crect x='50' y='200' width='90' height='20' fill='%238b5cf6' rx='10'/%3E%3Ctext x='45' y='215' text-anchor='end' font-family='Arial' font-size='12' fill='%23374151'%3E膽固醇%3C/text%3E%3Crect x='50' y='230' width='70' height='20' fill='%23ec4899' rx='10'/%3E%3Ctext x='45' y='245' text-anchor='end' font-family='Arial' font-size='12' fill='%23374151'%3E血糖%3C/text%3E%3Ctext x='320' y='65' font-family='Arial' font-size='10' fill='%23374151'%3E高風險%3C/text%3E%3Ctext x='320' y='95' font-family='Arial' font-size='10' fill='%23374151'%3E中風險%3C/text%3E%3Ctext x='320' y='125' font-family='Arial' font-size='10' fill='%23374151'%3E低風險%3C/text%3E%3C/svg%3E" alt="XGBoost Analysis">
+                        </div>
+                    </div>
+                    
+                    <div class="rightbottom_right">
+                        <div class="title">
+                            <p>診斷結果</p>
+                        </div>
+                        <div class="doctor_advice">
+                            <textarea name="diagnosis" placeholder="請輸入診斷內容...
+
+基於患者的心電圖數據和AI分析結果，初步評估如下：
+
+1. 心律狀況：基本正常
+2. 血壓指標：在正常範圍內
+3. 風險評估：中等風險
+
+建議：
+- 定期追蹤心電圖變化
+- 維持良好的生活習慣
+- 適度運動，控制體重"></textarea>
+                        </div>
+                        <button class="save" onclick="submitForm()">儲存診斷</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmLogout() {
+            if (confirm("確定要登出嗎？")) {
+                alert("已登出系統");
+            }
+        }
+
+        function submitForm() {
+            const textarea = document.querySelector('textarea[name="diagnosis"]');
+            if (textarea.value.trim() === '') {
+                alert("請輸入診斷內容！");
+                return;
+            }
+            
+            // 模擬儲存過程
+            setTimeout(() => {
+                alert("診斷資料保存成功！");
+            }, 500);
+        }
+    </script>
+</body>
+</html>

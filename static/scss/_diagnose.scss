@@ -1,0 +1,312 @@
+.container{
+    max-width: 1920px;
+    min-height: 100vh; 
+    margin: 0 auto;
+    // height: auto;
+    background: linear-gradient(to bottom, #1e57ff, #e2eaf1);
+    // background-image: url('../img/indexbd2.png'); 
+    background-size: cover;           
+    background-position: center; 
+    // background-repeat: no-repeat;
+    background-repeat: repeat;
+    position: relative;
+    
+
+
+    hr{
+        border: none;
+        height: 6px;
+        background: linear-gradient(to right, #7fb8d1, #e2eaf1);
+        margin: 20px 0 30px 0;
+        max-width: 1300px;
+    }
+    .content{
+        color:#2ab7c6;
+    }
+    .title{
+        padding: 10px;
+        text-align: center;
+        background: linear-gradient(to bottom, #7fb8d1, #e2eaf1);
+        border-radius: 15px 15px 0px 0px;
+    }
+    .navbar{
+        text-align: center;
+        width: 105px;
+        height: 100vh;
+        position:fixed;
+        background-color: #2187bd;
+        color:white;
+        padding-top: 100px;
+        padding-bottom: 20px;
+        .icon2{
+            width: 60px;     
+            height: auto;    
+            position: absolute;  
+            top: 20px;        
+            left: 20px;
+            
+        }
+        img{
+            width:30px;
+            height:30px;
+            
+        }
+        .nav{
+            display:inline-block;
+            li{
+                margin-bottom: 18px;
+                padding: 15px 2px 15px 2px;
+                border-radius: 30px;        
+                cursor: pointer;
+                &:hover{
+                    background-color: #34495e;
+                }
+                
+            }
+            .diagnose_d{
+                background-color: #34495e;
+            }
+            .profile_d{
+                padding-bottom: 23px;
+                padding-top: 20px;
+                font-size: 14px;
+            }
+        }
+       
+    }
+    .exit{
+        position:absolute;
+        bottom: 18px;
+        left:19px;
+        padding: 20px 15px 20px 15px;
+        border-radius: 40px;
+        &:hover{
+            background-color: #34495e;
+        }
+    }
+    
+    .main_d{
+        display: flex;
+        margin-left: 105px;
+        margin-right: 30px;
+        .leftsection{
+            width: 30%;
+            height: 100vh;//不能用px
+            overflow-y: auto;//滾軸
+            background-color: white;
+            padding: 30px 30px 20px 30px;
+            margin-right: 30px;
+            .date{
+                font-weight: bold;
+                font-size: 20px;
+                margin-bottom: 40px;
+            }
+            .basic_ifo{
+                display:flex;
+                margin-bottom: 30px;
+                .name_id{
+                    .name{
+                        font-size: 22px;
+                        margin-bottom: 10px;
+                        margin-right: 30px;
+                    }
+                }
+            }
+            .basic2{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                .risk-tag {
+                    padding: 4px 8px;
+                    border-radius: 6px;
+                    color: white;
+                    font-weight: bold;
+                }
+                .高風險 {
+                    background: linear-gradient(to bottom, #ff3131, #f0b58d)
+                }
+                .中風險 {
+                    background: linear-gradient(to bottom, #ffde59, #f7a470)
+                }
+                .低風險 {
+                    background: linear-gradient(to bottom, #7bd443, #c6de65)
+                }
+            }
+            .leftbottom{
+                margin: 0px 30px 20px 30px;
+                li{
+                    margin-bottom: 25px;
+                    display: flex;              
+                    justify-content: space-between;
+                    .sport{
+                        margin-bottom: 20px;
+                    }
+                }
+
+            }
+        }
+        .rightsection{
+            // margin-bottom: 10px;
+            max-height:calc(100vh - 50px);
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            gap: 10px;
+            // height: calc(100vh - 50px);
+
+            // .righttop{
+                
+            //     .ECG{
+            //         overflow-y: auto;
+            //         height: 48%;
+            //         background-color: #fff;
+            //         border-radius: 0 0 15px 15px; 
+            //         overflow: hidden; // ✅ 多餘內容隱藏，避免撐爆容器
+            //         display: flex;
+            //         justify-content: center;
+            //         overflow: auto;// ✅ 如果有滾動需求也可以這樣設
+            //         .ECG_graphic{
+            //             max-width: 100%;
+            //             // height: auto;
+            //             max-height: 100%; // 限制圖片最高不要超過容器
+            //             object-fit: contain; // 保持圖片比例
+            //             display: block;
+            //         }
+            //     }
+                     
+            // }
+            .righttop {     
+                height: 50%;
+                display: flex;
+                flex-direction:column;
+                .ECG {
+                    width: 100%;
+                    height: 100%;
+                    // height: auto; // 或你可以設固定高度如 max-height: 300px;
+                    display: flex;
+                    justify-content: center;
+                    // align-items: center;
+                    background-color: #fff;
+                    border-radius: 0 0 15px 15px;
+                    padding: 10px;
+                    overflow-y: auto;
+
+                    .ECG_graphic {
+                        max-width: 100%;
+                        max-height: 380px;
+                        width: auto;
+                        height: auto;
+                        object-fit: contain; // ✅ 保持圖片比例且完全顯示
+                        display: block;
+                    }
+                }
+            }
+            .rightbottom{
+                height: 50%;
+                margin-top: 15px;
+                display: flex;
+                .rightbottom_left{
+                    width: 55%;
+                    margin-right: 20px;
+                    border-radius: 15px ;
+                    background-color: #fff;
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1; // ✅ 加這行，讓它撐開剩餘高度
+                    .xgboost{
+                        // width: 100%;
+                        // height: auto;
+                        // display: flex;
+                        // justify-content: center;
+                        // align-items: center;
+                        // background-color: #fff;
+                        // border-radius: 0 0 15px 15px;
+                        // padding: 20px;
+                        // overflow-y: auto; 
+                        flex: 1; // ✅ 讓它填滿剩餘空間
+                        overflow-y: auto; // ✅ 允許垂直滾動
+                        padding: 20px;
+                        display: block; // ❗ 不要用 flex-center，避免內容被壓縮
+
+                        .xgboost_content{
+                            display: block;
+                            min-height: 100%; // ✅ 撐滿父層
+                            
+                            .xgboost_graphic{
+                                max-width: 100%;
+                                max-height:100%;
+                                width: auto;
+                                height: auto;
+                                object-fit: contain; // ✅ 保持圖片比例且完全顯示
+                                display: block;
+                                margin-bottom: 20px;
+                                
+                            }  
+                            .x1_content{
+                                color: #757474;
+                                line-height: 1.5;
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                .rightbottom_right {
+                    flex: 1;
+                    background-color: white;
+                    border-radius: 15px;
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+                    display: flex;
+                    flex-direction: column;
+                    overflow: hidden;
+                    position: relative;
+                    .doctor_advice {
+                        flex: 1;
+                        padding: 0;
+                        textarea {
+                            width: 100%;
+                            height: 100%;
+                            padding: 20px;
+                            font-size: 16px;
+                            border: none;
+                            outline: none;
+                            resize: none;
+                            background-color: #fafafa;
+                        }
+                    }
+
+                    .save {
+                        position: absolute;
+                        bottom: 2px;
+                        margin: 20px;
+                        max-width: 100%;
+                        width: 90%;
+                        padding: 12px 24px;
+                        border-radius: 25px;
+                        border: none;
+                        background: linear-gradient(135deg, #667eea, #764ba2);
+                        color: white;
+                        font-weight: bold;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+                    }
+
+                    .save:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+                    }
+                }
+
+                
+                        
+             }
+                    
+        }
+
+    }
+    
+    
+}

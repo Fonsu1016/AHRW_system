@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='scss/all.css') }}">
+    <!-- <link rel="stylesheet" href="scss/all.css"> -->
+</head>
+<body>
+    <div class="login_container">
+        <div class="login_view">
+            <img class="medical" src="{{ url_for('static', filename='img/icon.png') }}" alt="">
+            <h1> AI 心臟風險預警安全傳輸系統</h1>
+            <h2>醫護端</h2>
+            <form method="POST" action="{{url_for('login')}}">
+                <div class="inputbox">
+                    <input type="text" name="username" placeholder="帳號" required>
+                    <img src="{{ url_for('static', filename='img/account_icon.png') }}" alt="account_icon">
+                </div>
+
+                <div class="inputbox2">
+                    <input type="password" name="password" placeholder="密碼" required>
+                    <img src="{{ url_for('static', filename='img/code_icon.png') }}" alt="code_icon">
+                </div>
+                <button class="login_btn" type="submit">登入</button>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <p class="loginerror" style="color:red;">{{ messages[0] }}</p>
+                    {% endif %}
+                {% endwith %}
+                
+                
+                
+            </form>
+        </div>
+    </div>
+    
+</body>
+</html>

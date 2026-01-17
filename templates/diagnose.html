@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='scss/all.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <img class="icon2"src="{{ url_for('static', filename='img/icon2.png') }}" alt="">
+            <ul class="nav">
+                <li class="index_d">
+                     <a href="{{ url_for('index_page') }}">
+                        <img src="{{ url_for('static', filename='img/index_icon.png') }}" alt="">
+                        <p>首頁</p>
+                    </a>    
+                </li>
+                <li class="diagnose_d">
+                     <a href="">
+                        <img src="{{ url_for('static', filename='img/diagnose_icon.png') }}" alt="">
+                        <p>診斷</p>
+                    </a>    
+                </li>
+                <li>
+                    <a href="{{ url_for('setting_page') }}">
+                        <img src="{{ url_for('static', filename='img/setting_icon.png') }}" alt="">
+                        <p>設置</p>
+                    </a>  
+                </li>
+                <li class="profile_d">
+                    <a href="{{ url_for('profile_page') }}">
+                        <img src="{{ url_for('static', filename='img/profile_icon.png') }}" alt="">
+                        <p>個人資訊</p>
+                    </a>    
+                </li>
+            </ul>
+            <form id="logoutForm" action="{{ url_for('logout') }}" method="POST">
+                <button class="exit" type="button" onclick="confirmLogout()">
+                    <img src="{{ url_for('static', filename='img/exit_icon.png') }}" alt="">
+                    <p>登出</p>
+                </button>
+            </form>         
+        </div>
+
+        <div class="main_d">
+            <div class="leftsection">
+                <p class="date">{{ patient.create_at }}</p>
+                <div class="basic_ifo">
+                    <div class="name_id">
+                        <span class="name">{{ patient.name }}</span>
+                        <span class="content">ID</span>
+                        <span>{{ patient.user_id }}</span>
+                    </div>
+                </div> 
+                <div class="basic2">
+                    <div class="gender">
+                        <span class="content">性別</span>
+                        <span>{{ patient.sex }}</span>
+                    </div>
+                    <div class="age">
+                        <span class="content">年齡</span>
+                        <span>{{ patient.age }}</span>
+                    </div>
+                    <div class="risk">
+                        <span class="content">風險</span>
+                        <span class="risk-tag {{ patient.risk_level }}">{{ patient.risk_level }}</span>
+                    </div>
+                </div>
+                <hr>
+            
+                <ul class="leftbottom">
+                    <li>
+                        <span class="content">身高/cm</span>
+                        <span>{{ patient.height }}</span>
+                    </li>
+                    <li>
+                        <span class="content">體重/kg</span>
+                        <span>{{ patient.weight }}</span>
+                    </li>
+                    <li>
+                        <span class="content">BMI</span>
+                        <span class="data-value" id="bmi">{{ patient.BMI }}</span>
+                    </li>
+                    <li>
+                        <span class="content">收縮壓(mmHg)</span>
+                        <span class="data-value" id="systolic">{{ patient.systolic_pressure }}</span>
+                    </li>
+                    <li>
+                        <span class="content">舒張壓(mmHg)</span>
+                        <span class="data-value" id="diastolic">{{ patient.diastolic_pressure }}</span>
+                    </li>
+                    <li>
+                        <span class="content">脈搏</span>
+                        <span class="data-value" id="pulse">{{ patient.pulse }}</span>
+                    </li>
+                    <li>
+                        <span class="content">體溫(℃)</span>
+                        <span class="data-value" id="temp">{{ patient.temperature }}</span>
+                    </li>
+                    <li>
+                        <span class="content">膽固醇</span>
+                        <span class="data-value" id="cholesterol">{{ patient.cholesterol }}</span>
+                    </li>
+                    <li>
+                        <span class="content">血糖</span>
+                        <span class="data-value" id="blood_sugar">{{ patient.blood_sugar }}</span>
+                    </li>
+                    <li>
+                        <span class="content">有無抽菸</span>
+                        <span class="data-value" id="smoking">{{ patient.smoking }}</span>
+                    </li>
+                    <li>
+                        <span class="content">有無飲酒</span>
+                        <span class="data-value" id="drinking">{{ patient.drinking }}</span>
+                    </li>
+                    <li>
+                        <span class="content">有無運動</span>
+                        <span class="data-value" id="exercise">{{ patient.exercise }}</span>
+                    </li>
+                    <li>
+                        <span class="content">有無糖尿病</span>
+                        <span class="data-value" id="diabetes">{{ patient.diabetes }}</span>
+                    </li>
+                    <li>
+                        <span class="content">有無睡眠障礙</span>
+                        <span class="data-value" id="sleep_disorder">{{ patient.sleep_disorder }}</span>
+                    </li>
+                    <li>
+                        <span class="content sport">有無高血壓</span>
+                        <span class="data-value" id="hypertension">{{ patient.hypertension }}</span>
+                    </li>
+                    
+                </ul>
+
+            </div>
+            <div class="rightsection">
+                <div class="righttop">
+                    <div class="title">
+                        <p>心電圖</p>
+                    </div>
+                    <div class="ECG">
+                        <img class="ECG_graphic"src="{{ url_for('static', filename='img/ECG.png') }}" alt="">
+                    </div>
+                </div>
+                <div class="rightbottom">
+                    <div class="rightbottom_left">
+                        <div class="title">
+                            <p>XGboost危險因子分析結果</p>
+                        </div>
+                        <div class="xgboost">
+                            <div class="xgboost_content">
+                                <!-- <img class="xgboost_graphic"src="{{ url_for('static', filename='img/因子分析.png') }}" alt=""> -->
+                                <img class="xgboost_graphic" src="../static/img/health_chart.png" alt="健康指標圖表">
+                                <!-- <p style="font-weight: bold;font-size: 18px;margin: 20px 0 10px 0;">主要致死因子：</p> -->
+                                <!-- <p class="x1_content">極高血壓伴隨心搏過速,增加心肌梗塞、中風和心律失常風險。</p> -->
+                                <p style="font-weight: bold;font-size: 18px;margin: 20px 0 10px 0;">心臟健康問題的可能性百分比:<span>{{ patient.overall_risk_score }}</span>%</p>
+                                <!-- <p class="x1_content">(短期內若未控制血壓,發生急性心血管事件的風險偏高)</p> -->
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="rightbottom_right">
+                        <div class="title">
+                            <p>診斷結果</p>
+                        </div>
+                        <!-- 不重新整理頁面、儲存成功才跳 alert、停留在原頁面 的方法-->
+                        <!-- 不讓它直接送出 -->
+                        <form id="diagnosisForm" action="{{ url_for('save_diagnosis', user_id=patient.user_id) }}">
+                            <div class="doctor_advice">
+                                <textarea name="diagnosis" rows="12" placeholder="請輸入診斷內容"></textarea>
+                                
+                            </div>
+                            <button class="save" type="button" onclick="submitForm()" >儲存</button> 
+                                  
+                        </form>
+                    </div>
+    
+                </div>
+            </div>
+
+        </div>
+
+       
+        
+
+    </div>
+     <script>
+        function confirmLogout() {
+            if (confirm("確定要登出嗎？")) {
+                document.getElementById("logoutForm").submit();
+            }
+        }
+
+        function submitForm() {
+            const form = document.getElementById("diagnosisForm");
+            const formData = new FormData(form);
+            const url = form.action;
+
+            fetch( url, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("資料保存成功！");
+                } else {
+                    alert("儲存失敗，請稍後再試！");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("伺服器錯誤！");
+            });
+        }
+        
+    </script>
+    <script>
+        // 數值範圍檢查
+        function highlightValue(id, value, min, max) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (value < min || value > max) {
+            el.style.color = '#ef233c';
+            el.style.fontWeight = 'bold';
+            }
+        }
+
+        // 抽取數值
+        const systolic = parseFloat(document.getElementById('systolic').textContent);
+        const diastolic = parseFloat(document.getElementById('diastolic').textContent);
+        const pulse = parseFloat(document.getElementById('pulse').textContent);
+        const temp = parseFloat(document.getElementById('temp').textContent);
+        const bmi = parseFloat(document.getElementById('bmi').textContent);
+        const cholesterol = parseFloat(document.getElementById('cholesterol').textContent);
+        const bloodSugar = parseFloat(document.getElementById('blood_sugar').textContent);
+
+        // 範圍判斷
+        highlightValue('systolic', systolic, 90, 120);
+        highlightValue('diastolic', diastolic, 60, 80);
+        highlightValue('pulse', pulse, 60, 100);
+        highlightValue('temp', temp, 36.1, 37.2);
+        highlightValue('bmi', bmi, 18.5, 24.9);
+        highlightValue('cholesterol', cholesterol, 0, 199);
+        highlightValue('blood_sugar', bloodSugar, 70, 100);
+
+        // 有無項目變紅
+        function markIfUnhealthy(id, condition) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const value = el.textContent.trim();
+            // 當值是「有」或「無運動」時變紅
+            if (value === '有' || value === '無運動' || value === '高血壓') {
+            el.style.color = '#ef233c';
+            el.style.fontWeight = 'bold';
+            }
+        }
+
+        // 套用判斷
+        markIfUnhealthy('smoking');
+        markIfUnhealthy('drinking');
+        markIfUnhealthy('exercise');
+        markIfUnhealthy('diabetes');
+        markIfUnhealthy('sleep_disorder');
+        markIfUnhealthy('hypertension');
+    </script>
+
+</body>
+</html>

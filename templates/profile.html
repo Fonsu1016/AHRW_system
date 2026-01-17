@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='scss/all.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <img class="icon2"src="{{ url_for('static', filename='img/icon2.png') }}" alt="">
+            <ul class="nav">
+                <li class="index_p">
+                     <a href="{{ url_for('index_page') }}">
+                        <img src="{{ url_for('static', filename='img/index_icon.png') }}" alt="">
+                        <p>首頁</p>
+                    </a>    
+                </li>
+                <li class="diagnose_p">
+                     <a href="">
+                        <img src="{{ url_for('static', filename='img/diagnose_icon.png') }}" alt="">
+                        <p>診斷</p>
+                    </a>    
+                </li>
+                <li>
+                    <a href="{{ url_for('setting_page') }}">
+                        <img src="{{ url_for('static', filename='img/setting_icon.png') }}" alt="">
+                        <p>設置</p>
+                    </a>  
+                </li>
+                <li class="profile_p">
+                    <a href="{{ url_for('profile_page') }}">
+                        <img src="{{ url_for('static', filename='img/profile_icon.png') }}" alt="">
+                        <p>個人資訊</p>
+                    </a>    
+                </li>
+            </ul>
+            <form id="logoutForm" action="{{ url_for('logout') }}" method="POST">
+                <button class="exit" type="button" onclick="confirmLogout()">
+                    <img src="{{ url_for('static', filename='img/exit_icon.png') }}" alt="">
+                    <p>登出</p>
+                </button>
+            </form>         
+        </div>
+        <form id="doctorForm" action="{{ url_for('update_profile') }}" method="POST">
+            <div class="main_p">
+                <div class="edit">
+                    <button class="edit_profile" type="submit">
+                        <img src="{{ url_for('static', filename='img/edit_icon.png') }}" alt="">
+                    </button>
+                </div>
+                <div class="section1_p">
+                    <img src="{{ url_for('static', filename='img/doctor_icon.png') }}" alt="">
+                    <div class="section1r_p">
+                        <input type="text" name="name" value="吳小明">
+                        <p>吳小明</p>
+                        <div class="section1rb_p">
+                            <div class="jobtitle">
+                                <span class="content">職稱：</span>
+                                <input type="text" name="title" value="主治醫師">
+                                <!-- <span>主治醫師</span> -->
+                            </div>
+                            <div class="jobtitle">
+                                <span class="content">專科：</span>
+                                <span>心臟內科</span>
+                            </div>
+                            <div class="jobtitle">
+                                <span class="content">年資：</span>
+                                <span>20年</span>
+                            </div>
+                            <div class="gendeer_p">
+                                <span class="content">性別：</span>
+                                <span>男</span>
+                            </div>
+                            <div class="age_p">
+                                <span class="content">年齡：</span>
+                                <span>49歲</span>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+                <hr>
+                <div class="section2_p">
+                    <div class="professional_history">
+                        <img src="img/exeperience_icon.png" alt="">
+                        <p>職業經歷</p>
+                    </div>
+                    <textarea></textarea>
+                </div>
+                <div class="section3_p">
+                    <div class="contact_title">
+                        <img src="img/phone_icon.png" alt="">
+                        <p>聯絡資訊</p>
+                    </div>
+                    <ul class="contact">
+                        <li>
+                            <div class="content ">連絡電話</div>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <div class="content">Email</div>
+                            <input type="text">
+                        </li>
+                        <li>
+                            <div class="content">通訊地址</div>
+                            <input type="text">
+                        </li>
+                    </ul>
+                    
+
+                </div>
+            </div>
+        </form>
+    </div>
+        
+        
+
+    
+     <script>
+        function confirmLogout() {
+            if (confirm("確定要登出嗎？")) {
+                document.getElementById("logoutForm").submit();
+            }
+        }
+    </script>
+</body>
+</html>

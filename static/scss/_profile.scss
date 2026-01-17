@@ -1,0 +1,165 @@
+.container{
+    max-width: 1920px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #E3F2FD, #90CAF9); /* 淡藍 → 藍色 */
+    background-size: cover;           
+    background-position: center; 
+    background-repeat: no-repeat;
+    position: relative;
+    
+    .navbar{
+        text-align: center;
+        width: 105px;
+        height: 100vh;
+        position:fixed;
+        background-color: #2187bd;
+        color:white;
+        padding-top: 100px;
+        padding-bottom: 20px;
+        .icon2{
+            width: 60px;     
+            height: auto;    
+            position: absolute;  
+            top: 20px;        
+            left: 20px;
+            
+        }
+        img{
+            width:30px;
+            height:30px;
+            
+        }
+        .nav{
+            display:inline-block;
+            li{
+                margin-bottom: 18px;
+                padding: 15px 2px 15px 2px;
+                border-radius: 30px;        
+                cursor: pointer;
+                &:hover{
+                    background-color: #34495e;
+                }
+                
+            }
+            .profile_p{
+                padding-bottom: 23px;
+                padding-top: 20px;
+                font-size: 14px;
+                 background-color: #34495e;
+            }
+        }
+       
+    }
+    
+}
+
+.main_p{
+    padding-top: 30px;
+    margin: 0 0 20px 150px;
+    height: 100vh;//不能用px
+    overflow-y: auto;//滾軸
+    position:relative;
+    .edit{
+        position:absolute;
+        top: 40px;
+        right: 50px;
+        .edit_profile{
+            background-color: transparent;
+            border: none;
+            border-radius: 10px;
+            &:hover{
+                background-color: #7fb8d1;
+            }
+            img{
+                width: 50px;
+            }
+        }
+        
+    }
+    .section1_p{
+        display: flex;
+        margin-right: 40px;
+        img{
+            width: 140px;
+        }
+        .section1r_p{
+            padding: 30px;
+            width: 900px;
+            p{
+                font-size: 30px;
+                margin-bottom: 30px;
+            }
+            .section1rb_p{
+                display: flex;
+                justify-content: space-between;
+                font-size: 20px;
+
+            }
+
+        }
+        
+    }
+    .section2_p{
+        height: 220px;
+        margin-bottom: 20px;
+        margin-right: 40px;
+        .professional_history{
+            font-size: 20px;
+            padding: 10px 0 10px 20px;
+            border-radius: 20px 20px 0 0;
+            width: 300px;
+            background: linear-gradient(to bottom, #7fb8d1, #e2eaf1);
+            display: flex;
+            align-items: center;
+            gap: 8px;  
+            img{
+                width: 24px;  
+            }
+        }
+        textarea{
+            width: 100%;
+            height: 180px;
+            font-size: 20px;
+            border-radius:0 0 15px 15px;
+            resize:none; 
+        }
+    }
+    .section3_p{
+        height: 250px;
+        margin-right: 40px;
+        .contact_title{
+            font-size: 20px;
+            padding: 10px 0 10px 20px;
+            border-radius: 20px 20px 0 0;
+            width: 300px;
+            background: linear-gradient(to bottom, #7fb8d1, #e2eaf1);
+            display: flex;
+            align-items: center;
+            gap: 8px;  
+            img{
+                width: 24px;  
+            }
+        }
+        .contact{
+            background-color: #fff;
+            padding: 20px 0 5px 30px;
+            border-radius: 0 0 15px 15px;
+            li{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 20px;
+                margin-bottom: 20px;
+                width: 1000px;
+                input{
+                    padding: 7px;
+                    border-radius: 10px;
+                    width: 800px;
+                    border-color: #7fb8d1;
+                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+                }
+            }
+        }
+    }
+}

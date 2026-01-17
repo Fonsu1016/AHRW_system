@@ -1,10 +1,12 @@
 from flask import Flask,render_template, request, redirect, url_for, flash,session #request接收使用者提交的表單資料（如帳號密碼）
+# import pymysql
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash #加密 / 驗證密碼
 from flask_socketio import SocketIO
 from datetime import datetime
 
 app = Flask(__name__)#建立一個 Flask 應用實例，__name__ 代表目前這個 Python 檔案的名稱。
+# pymysql.install_as_MySQLdb()
 app.secret_key = '13579'  # 用於 flash 提示訊息
 socketio = SocketIO(app)
 

@@ -1,11 +1,330 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>系統設置 — AI 心臟風險預警系統</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='scss/all.css') }}">
 </head>
 <body>
-    
+    <div class="container">
+        <!-- 左側導覽列 -->
+        <div class="navbar">
+            <img class="icon2" src="{{ url_for('static', filename='img/icon2.png') }}" alt="系統圖示">
+            <ul class="nav">
+                <li>
+                    <a href="{{ url_for('index_page') }}">
+                        <img src="{{ url_for('static', filename='img/index_icon.png') }}" alt="">
+                        <p>首頁</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <img src="{{ url_for('static', filename='img/diagnose_icon.png') }}" alt="">
+                        <p>診斷</p>
+                    </a>
+                </li>
+                <li class="setting_s">
+                    <a href="{{ url_for('setting_page') }}">
+                        <img src="{{ url_for('static', filename='img/setting_icon.png') }}" alt="">
+                        <p>設置</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url_for('profile_page') }}">
+                        <img src="{{ url_for('static', filename='img/profile_icon.png') }}" alt="">
+                        <p>個人資訊</p>
+                    </a>
+                </li>
+            </ul>
+            <form id="logoutForm" action="{{ url_for('logout') }}" method="POST">
+                <button class="exit" type="button" onclick="confirmLogout()">
+                    <img src="{{ url_for('static', filename='img/exit_icon.png') }}" alt="">
+                    <p>登出</p>
+                </button>
+            </form>
+        </div>
+
+        <!-- 設置主體 -->
+        <div class="main_s">
+            <div class="page_header_s">
+                <h1>系統設置</h1>
+                <p>管理您的通知偏好、系統參數與帳號安全設定</p>
+            </div>
+
+            <div class="settings_grid">
+
+                <!-- 通知設定 -->
+                <div class="settings_card">
+                    <div class="card_title">
+                        <span class="icon_dot"></span>
+                        通知設定
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>新病患資料通知</strong>
+                            <span>收到新病患資料時發出提示</span>
+                        </div>
+                        <label class="toggle_switch">
+                            <input type="checkbox" id="notify_new" checked>
+                            <span class="toggle_slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>高風險警報通知</strong>
+                            <span>高風險病患資料送達時立即提醒</span>
+                        </div>
+                        <label class="toggle_switch">
+                            <input type="checkbox" id="notify_high" checked>
+                            <span class="toggle_slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>通知提示音</strong>
+                            <span>收到通知時播放音效</span>
+                        </div>
+                        <label class="toggle_switch">
+                            <input type="checkbox" id="notify_sound">
+                            <span class="toggle_slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>資料自動更新</strong>
+                            <span>定期自動檢查新資料</span>
+                        </div>
+                        <label class="toggle_switch">
+                            <input type="checkbox" id="auto_refresh" checked>
+                            <span class="toggle_slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>更新頻率</strong>
+                            <span>自動檢查新資料的間隔時間</span>
+                        </div>
+                        <select class="select_input" id="refresh_interval">
+                            <option value="5">5 秒</option>
+                            <option value="10" selected>10 秒</option>
+                            <option value="30">30 秒</option>
+                            <option value="60">1 分鐘</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 系統偏好 -->
+                <div class="settings_card">
+                    <div class="card_title">
+                        <span class="icon_dot"></span>
+                        系統偏好
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>介面語言</strong>
+                            <span>系統顯示語言設定</span>
+                        </div>
+                        <select class="select_input" id="language">
+                            <option value="zh-TW" selected>繁體中文</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>時區設定</strong>
+                            <span>顯示時間所用的時區</span>
+                        </div>
+                        <select class="select_input" id="timezone">
+                            <option value="UTC+8" selected>UTC+8（台灣）</option>
+                            <option value="UTC+9">UTC+9（日本）</option>
+                            <option value="UTC+0">UTC+0（UTC）</option>
+                        </select>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>每頁顯示筆數</strong>
+                            <span>病患列表一次顯示的病患數量</span>
+                        </div>
+                        <select class="select_input" id="page_size">
+                            <option value="10">10 筆</option>
+                            <option value="20" selected>20 筆</option>
+                            <option value="50">50 筆</option>
+                            <option value="100">100 筆</option>
+                        </select>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>高風險標記提醒</strong>
+                            <span>在列表中突顯高風險病患列</span>
+                        </div>
+                        <label class="toggle_switch">
+                            <input type="checkbox" id="highlight_high" checked>
+                            <span class="toggle_slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="setting_item">
+                        <div class="setting_label">
+                            <strong>診斷儲存確認</strong>
+                            <span>儲存診斷前顯示確認對話框</span>
+                        </div>
+                        <label class="toggle_switch">
+                            <input type="checkbox" id="save_confirm" checked>
+                            <span class="toggle_slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 帳號安全 -->
+                <div class="settings_card">
+                    <div class="card_title">
+                        <span class="icon_dot"></span>
+                        帳號安全
+                    </div>
+
+                    <div class="current_account_box">
+                        <div class="account_icon">醫</div>
+                        <div class="account_info">
+                            <strong>目前登入帳號</strong>
+                            <span>已通過醫護端身份驗證</span>
+                        </div>
+                    </div>
+
+                    <div class="password_form">
+                        <div class="form_group">
+                            <label>目前密碼</label>
+                            <input type="password" id="old_password" placeholder="請輸入目前密碼">
+                        </div>
+                        <div class="form_group">
+                            <label>新密碼</label>
+                            <input type="password" id="new_password" placeholder="請輸入新密碼（至少 8 碼）">
+                        </div>
+                        <div class="form_group">
+                            <label>確認新密碼</label>
+                            <input type="password" id="confirm_password" placeholder="請再次輸入新密碼">
+                        </div>
+                        <button class="save_settings_btn" type="button" onclick="changePassword()">更新密碼</button>
+                    </div>
+                </div>
+
+                <!-- 關於系統 -->
+                <div class="settings_card">
+                    <div class="card_title">
+                        <span class="icon_dot"></span>
+                        關於系統
+                    </div>
+
+                    <div class="about_info">
+                        <div class="about_item">
+                            <span class="label">系統名稱</span>
+                            <span class="value">AI 心臟風險預警安全傳輸系統</span>
+                        </div>
+                        <div class="about_item">
+                            <span class="label">版本號</span>
+                            <span class="value">v1.0.0</span>
+                        </div>
+                        <div class="about_item">
+                            <span class="label">系統端</span>
+                            <span class="value">醫護端（AHRW-STS）</span>
+                        </div>
+                        <div class="about_item">
+                            <span class="label">資料加密</span>
+                            <span class="value">AES-256 傳輸加密</span>
+                        </div>
+                        <div class="about_item">
+                            <span class="label">AI 分析模型</span>
+                            <span class="value">XGBoost 心臟風險分類器</span>
+                        </div>
+                        <div class="about_item">
+                            <span class="label">資料庫</span>
+                            <span class="value">MySQL（本地端）</span>
+                        </div>
+                        <div class="about_item">
+                            <span class="label">後端框架</span>
+                            <span class="value">Python Flask</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 儲存成功 Toast -->
+    <div class="toast" id="settingToast">✓ 設定已儲存</div>
+    <div class="toast" id="errorToast" style="border-left-color:#E53935; border-color:#FECACA; color:#C0392B;">✗ 密碼不相符或格式錯誤</div>
+
+    <script>
+        function confirmLogout() {
+            if (confirm("確定要登出嗎？")) {
+                document.getElementById("logoutForm").submit();
+            }
+        }
+
+        // 從 localStorage 載入設定
+        const settingIds = ['notify_new','notify_high','notify_sound','auto_refresh',
+                            'refresh_interval','language','timezone','page_size',
+                            'highlight_high','save_confirm'];
+
+        settingIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const saved = localStorage.getItem('setting_' + id);
+            if (saved === null) return;
+            if (el.type === 'checkbox') el.checked = saved === 'true';
+            else el.value = saved;
+        });
+
+        // 儲存所有設定到 localStorage
+        settingIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const ev = el.type === 'checkbox' ? 'change' : 'change';
+            el.addEventListener(ev, () => {
+                localStorage.setItem('setting_' + id,
+                    el.type === 'checkbox' ? el.checked : el.value);
+                showToast('settingToast');
+            });
+        });
+
+        function showToast(id) {
+            const t = document.getElementById(id);
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        function changePassword() {
+            const oldPw  = document.getElementById('old_password').value.trim();
+            const newPw  = document.getElementById('new_password').value.trim();
+            const confPw = document.getElementById('confirm_password').value.trim();
+
+            if (!oldPw || !newPw || !confPw) {
+                showToast('errorToast');
+                return;
+            }
+            if (newPw !== confPw || newPw.length < 8) {
+                showToast('errorToast');
+                return;
+            }
+            // 此處可接後端 API；目前僅前端示意
+            document.getElementById('old_password').value = '';
+            document.getElementById('new_password').value = '';
+            document.getElementById('confirm_password').value = '';
+            showToast('settingToast');
+        }
+    </script>
 </body>
 </html>

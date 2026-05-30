@@ -138,7 +138,7 @@ def insert_csv_to_mysql(file_path):
     plt.title("Health Indicator Ranking Bar Chart", fontsize=18)
     plt.tight_layout()
 
-    save_path = r"C:\Users\user\OneDrive\桌面\ahrw system\static\img\health_chart.png"
+    save_path = r"C:\Users\user\Desktop\ahrw-system\static\img\health_chart.png"
     plt.savefig(save_path, dpi=150, bbox_inches='tight')
     print(f"📊 圖表已儲存至：{save_path}")
     # plt.show() 

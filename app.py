@@ -172,32 +172,25 @@ def update_profile():
     email = request.form['email']
     address = request.form['address']
 
-    # 資料庫連線與更新
-    conn = mysql.connection
-    try:
-        with conn.cursor() as cursor:
-            sql = """
-                UPDATE users
-                SET name=%s, title=%s, specialty=%s, experience=%s,
-                    gender=%s, age=%s, history=%s,
-                    phone=%s, email=%s, address=%s
-                WHERE doctor_id = %s
-            """
-            cursor.execute(sql, (name, title, specialty, experience, gender, age, history, phone, email, address, session['doctor_id']))
-        conn.commit()
-    finally:
-        conn.close()
+    cur = mysql.connection.cursor()
+    cur.execute("""
+        UPDATE users
+        SET name=%s, title=%s, specialty=%s, experience=%s,
+            gender=%s, age=%s, history=%s,
+            phone=%s, email=%s, address=%s
+        WHERE id = %s
+    """, (name, title, specialty, experience, gender, age, history, phone, email, address, session['doctor_id']))
+    mysql.connection.commit()
+    cur.close()
 
-    return redirect(url_for('profile_page'))
+    return redirect(url_for('profile_page', saved=1))
 
 @app.route('/profile')
 def profile_page():
-    conn = mysql.connection
-    doctor_data = {}
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM users WHERE doctor_id = %s", (session['doctor_id'],))
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM users WHERE id = %s", (session['doctor_id'],))
     doctor_data = cur.fetchone()
-    conn.close()
+    cur.close()
     return render_template('profile.html', doctor=doctor_data)
 
 

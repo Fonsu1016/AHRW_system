@@ -1,40 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>AI 心臟風險預警系統 — 登入</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='scss/all.css') }}">
-    <!-- <link rel="stylesheet" href="scss/all.css"> -->
 </head>
 <body>
     <div class="login_container">
         <div class="login_view">
-            <img class="medical" src="{{ url_for('static', filename='img/icon.png') }}" alt="">
-            <h1> AI 心臟風險預警安全傳輸系統</h1>
-            <h2>醫護端</h2>
-            <form method="POST" action="{{url_for('login')}}">
+            <img class="medical" src="{{ url_for('static', filename='img/icon.png') }}" alt="系統圖示">
+            <h1>AI 心臟風險預警<br>安全傳輸系統</h1>
+            <h2>醫 護 端</h2>
+            <form method="POST" action="{{ url_for('login') }}">
                 <div class="inputbox">
-                    <input type="text" name="username" placeholder="帳號" required>
-                    <img src="{{ url_for('static', filename='img/account_icon.png') }}" alt="account_icon">
+                    <img src="{{ url_for('static', filename='img/account_icon.png') }}" alt="帳號">
+                    <input type="text" name="username" placeholder="請輸入帳號" required>
                 </div>
-
                 <div class="inputbox2">
-                    <input type="password" name="password" placeholder="密碼" required>
-                    <img src="{{ url_for('static', filename='img/code_icon.png') }}" alt="code_icon">
+                    <img src="{{ url_for('static', filename='img/code_icon.png') }}" alt="密碼">
+                    <input type="password" name="password" placeholder="請輸入密碼" required>
                 </div>
-                <button class="login_btn" type="submit">登入</button>
+                <button class="login_btn" type="submit">登 入</button>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
-                    <p class="loginerror" style="color:red;">{{ messages[0] }}</p>
+                    <p class="loginerror">{{ messages[0] }}</p>
                     {% endif %}
                 {% endwith %}
-                
-                
-                
             </form>
         </div>
     </div>
-    
 </body>
 </html>

@@ -1,2 +1,8 @@
 flask
 flask-mysqldb
+flask-socketio
+mysql-connector-python
+pandas
+matplotlib
+watchdog
+chardet

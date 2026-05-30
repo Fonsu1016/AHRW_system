@@ -1,39 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>個人資訊 — AI 心臟風險預警系統</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='scss/all.css') }}">
 </head>
 <body>
     <div class="container">
+        <!-- 左側導覽列 -->
         <div class="navbar">
-            <img class="icon2"src="{{ url_for('static', filename='img/icon2.png') }}" alt="">
+            <img class="icon2" src="{{ url_for('static', filename='img/icon2.png') }}" alt="系統圖示">
             <ul class="nav">
-                <li class="index_p">
-                     <a href="{{ url_for('index_page') }}">
+                <li>
+                    <a href="{{ url_for('index_page') }}">
                         <img src="{{ url_for('static', filename='img/index_icon.png') }}" alt="">
                         <p>首頁</p>
-                    </a>    
+                    </a>
                 </li>
-                <li class="diagnose_p">
-                     <a href="">
+                <li>
+                    <a href="">
                         <img src="{{ url_for('static', filename='img/diagnose_icon.png') }}" alt="">
                         <p>診斷</p>
-                    </a>    
+                    </a>
                 </li>
                 <li>
                     <a href="{{ url_for('setting_page') }}">
                         <img src="{{ url_for('static', filename='img/setting_icon.png') }}" alt="">
                         <p>設置</p>
-                    </a>  
+                    </a>
                 </li>
                 <li class="profile_p">
                     <a href="{{ url_for('profile_page') }}">
                         <img src="{{ url_for('static', filename='img/profile_icon.png') }}" alt="">
                         <p>個人資訊</p>
-                    </a>    
+                    </a>
                 </li>
             </ul>
             <form id="logoutForm" action="{{ url_for('logout') }}" method="POST">
@@ -41,87 +45,106 @@
                     <img src="{{ url_for('static', filename='img/exit_icon.png') }}" alt="">
                     <p>登出</p>
                 </button>
-            </form>         
+            </form>
         </div>
+
+        <!-- 個人資訊主體 -->
         <form id="doctorForm" action="{{ url_for('update_profile') }}" method="POST">
             <div class="main_p">
-                <div class="edit">
-                    <button class="edit_profile" type="submit">
-                        <img src="{{ url_for('static', filename='img/edit_icon.png') }}" alt="">
-                    </button>
+                <div class="page_header">
+                    <h1>個人資訊</h1>
+                    <button class="save_btn" type="submit">儲存更新</button>
                 </div>
-                <div class="section1_p">
-                    <img src="{{ url_for('static', filename='img/doctor_icon.png') }}" alt="">
-                    <div class="section1r_p">
-                        <input type="text" name="name" value="吳小明">
-                        <p>吳小明</p>
-                        <div class="section1rb_p">
-                            <div class="jobtitle">
-                                <span class="content">職稱：</span>
-                                <input type="text" name="title" value="主治醫師">
-                                <!-- <span>主治醫師</span> -->
-                            </div>
-                            <div class="jobtitle">
-                                <span class="content">專科：</span>
-                                <span>心臟內科</span>
-                            </div>
-                            <div class="jobtitle">
-                                <span class="content">年資：</span>
-                                <span>20年</span>
-                            </div>
-                            <div class="gendeer_p">
-                                <span class="content">性別：</span>
-                                <span>男</span>
-                            </div>
-                            <div class="age_p">
-                                <span class="content">年齡：</span>
-                                <span>49歲</span>
-                            </div>
-                        </div> 
-                    </div>
-                </div>
-                <hr>
-                <div class="section2_p">
-                    <div class="professional_history">
-                        <img src="img/exeperience_icon.png" alt="">
-                        <p>職業經歷</p>
-                    </div>
-                    <textarea></textarea>
-                </div>
-                <div class="section3_p">
-                    <div class="contact_title">
-                        <img src="img/phone_icon.png" alt="">
-                        <p>聯絡資訊</p>
-                    </div>
-                    <ul class="contact">
-                        <li>
-                            <div class="content ">連絡電話</div>
-                            <input type="text">
-                        </li>
-                        <li>
-                            <div class="content">Email</div>
-                            <input type="text">
-                        </li>
-                        <li>
-                            <div class="content">通訊地址</div>
-                            <input type="text">
-                        </li>
-                    </ul>
-                    
 
+                <!-- 基本資料 -->
+                <div class="profile_card">
+                    <div class="card_title">
+                        <img src="{{ url_for('static', filename='img/doctor_icon.png') }}" alt="">
+                        基本資料
+                    </div>
+                    <div class="profile_top">
+                        <img class="profile_avatar" src="{{ url_for('static', filename='img/doctor_icon.png') }}" alt="醫師照片">
+                        <div class="info_grid">
+                            <div class="form_group">
+                                <label>姓名</label>
+                                <input type="text" name="name" value="{{ doctor.name if doctor and doctor.name else '' }}" placeholder="請輸入姓名">
+                            </div>
+                            <div class="form_group">
+                                <label>職稱</label>
+                                <input type="text" name="title" value="{{ doctor.title if doctor and doctor.title else '' }}" placeholder="例：主治醫師">
+                            </div>
+                            <div class="form_group">
+                                <label>專科</label>
+                                <input type="text" name="specialty" value="{{ doctor.specialty if doctor and doctor.specialty else '' }}" placeholder="例：心臟內科">
+                            </div>
+                            <div class="form_group">
+                                <label>年資</label>
+                                <input type="text" name="experience" value="{{ doctor.experience if doctor and doctor.experience else '' }}" placeholder="例：10年">
+                            </div>
+                            <div class="form_group">
+                                <label>性別</label>
+                                <input type="text" name="gender" value="{{ doctor.gender if doctor and doctor.gender else '' }}" placeholder="例：男 / 女">
+                            </div>
+                            <div class="form_group">
+                                <label>年齡</label>
+                                <input type="text" name="age" value="{{ doctor.age if doctor and doctor.age else '' }}" placeholder="例：45">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- 職業經歷 -->
+                <div class="profile_card">
+                    <div class="card_title">
+                        <img src="{{ url_for('static', filename='img/exeperience_icon.png') }}" alt="">
+                        職業經歷
+                    </div>
+                    <div class="form_group">
+                        <textarea name="history" placeholder="請輸入職業經歷、學術成就或相關資歷…">{{ doctor.history if doctor and doctor.history else '' }}</textarea>
+                    </div>
+                </div>
+
+                <!-- 聯絡資訊 -->
+                <div class="profile_card">
+                    <div class="card_title">
+                        <img src="{{ url_for('static', filename='img/phone_icon.png') }}" alt="">
+                        聯絡資訊
+                    </div>
+                    <div class="form_row">
+                        <div class="form_group">
+                            <label>連絡電話</label>
+                            <input type="text" name="phone" value="{{ doctor.phone if doctor and doctor.phone else '' }}" placeholder="例：02-1234-5678">
+                        </div>
+                        <div class="form_group">
+                            <label>Email</label>
+                            <input type="email" name="email" value="{{ doctor.email if doctor and doctor.email else '' }}" placeholder="例：doctor@hospital.tw">
+                        </div>
+                        <div class="form_group">
+                            <label>通訊地址</label>
+                            <input type="text" name="address" value="{{ doctor.address if doctor and doctor.address else '' }}" placeholder="請輸入通訊地址">
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </form>
     </div>
-        
-        
 
-    
-     <script>
+    <!-- 儲存成功提示 -->
+    <div class="toast" id="saveToast">✓ 資料更新成功</div>
+
+    <script>
         function confirmLogout() {
             if (confirm("確定要登出嗎？")) {
                 document.getElementById("logoutForm").submit();
             }
+        }
+
+        // 若 URL 帶有 ?saved=1 顯示 toast
+        if (new URLSearchParams(location.search).get('saved') === '1') {
+            const t = document.getElementById('saveToast');
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
         }
     </script>
 </body>

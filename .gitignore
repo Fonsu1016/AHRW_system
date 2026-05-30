@@ -1,0 +1,26 @@
+﻿# 虛擬環境
+venv/
+XGBoost_IHCAdata/
+
+# Python 快取
+__pycache__/
+*.pyc
+*.pyo
+
+# 資料庫敏感設定
+config.py
+
+# CSV 暫存檔
+*.csv
+app/toMatlab/
+
+# 解碼暫存資料夾
+result/
+
+# 系統檔案
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
